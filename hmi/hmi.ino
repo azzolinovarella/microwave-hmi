@@ -24,6 +24,26 @@ class HMI {
             this->lcd.print(message);
         }
 
+        void monitorButtons() {
+            switch(analogRead(0)) {
+                case 0 ... 80:
+                    this->right();
+                    break;
+                case 81 ... 200:
+                    this->up();
+                    break;
+                case 201 ... 400:
+                    this->down();
+                    break;
+                case 401 ... 600:
+                    this->left();
+                    break;
+                case 601 ... 800:
+                    this->select();
+                    break;
+            }
+        }
+
     private:
         LiquidCrystal lcd;
         // LedRGB ledRGB;
@@ -33,6 +53,26 @@ class HMI {
         void set_lcd(LiquidCrystal lcd) {
             this->lcd = lcd;
             this->lcd.begin(16, 2);  // Define o número de colunas e linhas do display
+        }
+
+        void right() {
+            this->print("RIGHT");
+        }
+
+        void up() {
+            this->print("UP");
+        }
+
+        void down() {
+            this->print("DOWN");
+        }
+
+        void left() {
+            this->print("LEFT");
+        }
+
+        void select() {
+            this->print("SELECT");
         }
 
         /* 
@@ -67,8 +107,8 @@ void setup() {
 }
 
 void loop() {
-    hmi.print("Hello World!");
-    delay(1000);
+    hmi.monitorButtons();
+    delay(100);  // TODO: Remover ou ver uma forma mais inteligente de fazer isso
 }
 
 // -----------------------------------------------------------------------------------------
