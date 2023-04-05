@@ -1,95 +1,36 @@
-#include <LiquidCrystal.h>
+#include "src/LcdKeypad.h"
+#define R_LED 0
+#define B_LED 1
+#define G_LED 2
 
 // Definição da classe HMI (Human Machine Interface) ------------------------------------
-class HMI {
+class HMI {  // TODO: Talvez renomear para Microwave (?)
+    // TODO: Usando de exemplo; Apartar depois (?)
     public:
-        // Segundo o ChatGPT, a sintaxe dos ":" segue: 
-        /*
-        This is a constructor for the HMI class that takes a LiquidCrystal object as an argument. The : 
-        after the constructor name indicates that it is an initializer list for member variables. The 
-        initializer list is used to initialize the member variable lcd with the passed lcdObject.
-        In other words, this constructor creates a new HMI object and initializes its lcd member variable with the 
-        lcdObject argument that is passed to the constructor. This allows you to create an HMI object with 
-        an already existing LiquidCrystal object, rather than creating a new LiquidCrystal object inside the 
-        HMI constructor. 
-        */    
-        HMI(LiquidCrystal lcdObject) : lcd(lcdObject) {
         // Quando tivermos outro objeto, ficaria: HMI(LiquidCrystal lcdObject, LedRGB ledObject) : lcd(lcdObject), led(ledObject)
-            this->set_lcd(lcd);
+        HMI(LcdKeypad lcdKeypadObject) : lcdKeypad(lcdKeypadObject) {
+            this->setLcdKeypad(lcdKeypad);
         }
-    
-        void print(String message) {
-            this->lcd.clear();
-            this->lcd.setCursor(0, 0);
-            this->lcd.print(message);
-        }
-
-        void monitorButtons() {
-            switch(analogRead(0)) {
-                case 0 ... 80:
-                    this->right();
-                    break;
-                case 81 ... 200:
-                    this->up();
-                    break;
-                case 201 ... 400:
-                    this->down();
-                    break;
-                case 401 ... 600:
-                    this->left();
-                    break;
-                case 601 ... 800:
-                    this->select();
-                    break;
-            }
-        }
-
+        
     private:
-        LiquidCrystal lcd;
-        // LedRGB ledRGB;
+        LcdKeypad lcdKeypad;
+        // LedRgb ledRgb;
         // Motor motor;
         // Buzzer buzzer;
 
-        void set_lcd(LiquidCrystal lcd) {
-            this->lcd = lcd;
-            this->lcd.begin(16, 2);  // Define o número de colunas e linhas do display
+        void setLcdKeypad(LcdKeypad LcdKeypad) {
+            this->lcdKeypad = lcdKeypad;
         }
-
-        void right() {
-            this->print("RIGHT");
-        }
-
-        void up() {
-            this->print("UP");
-        }
-
-        void down() {
-            this->print("DOWN");
-        }
-
-        void left() {
-            this->print("LEFT");
-        }
-
-        void select() {
-            this->print("SELECT");
-        }
-
-        /* 
-        void set_motor(Motor motor) {
-            // etc.
-        }
-        */
 };
 // ----------------------------------------------------------------------------------------
 
 // Constantes auxiliares ------------------------------------------------------------------
-const byte rs = 8, en = 9, d4 = 4, d5 = 5, d6 = 6, d7 = 7; // Pinos para ligar o display
+const byte RS = 8, EN = 9, D4 = 4, D5 = 5, D6 = 6, D7 = 7; // Pinos para ligar o display
 // ----------------------------------------------------------------------------------------
 
 // Instancia o objeto ---------------------------------------------------------------------
-// LCD
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+// LCD Keypad
+LcdKeypad lcdKeypad(RS, EN, D4, D5, D6, D7);
 // Led RGB
 // # TODO
 // Motor
@@ -98,17 +39,16 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 // # TODO
 
 // Finalmente, a HMI (IHM)
-HMI hmi(lcd);
+HMI hmi(lcdKeypad);
 // -----------------------------------------------------------------------------------------
 
 // Funções padrões -------------------------------------------------------------------------
 void setup() {
-    // Nada?
+    // TODO: Nada?
 }
 
 void loop() {
-    hmi.monitorButtons();
-    delay(100);  // TODO: Remover ou ver uma forma mais inteligente de fazer isso
+    // TODO
 }
 
 // -----------------------------------------------------------------------------------------
