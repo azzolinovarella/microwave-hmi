@@ -15,13 +15,16 @@ class Microwave {
     void run();
     // ------------------------------------------
 
+
  private:
   // MÉTODOS ----------------------------------
   void resolveInput(char input);
-  void increaseUnit(int unitDigit);
-  void decreaseUnit(int unitDigit);
-  void increaseDec(int decDigit);
-  void decreaseDec(int decDigit);
+  void resolveRight();
+  void resolveUp();
+  void resolveDown();
+  void resolveLeft();
+  String getTime();
+  unsigned long getRuntime();
   void turnOnMicrowave();
   // ------------------------------------------
   // ATRIBUTOS --------------------------------
@@ -34,8 +37,8 @@ class Microwave {
   int digitPosition;  // 0 - uni sec, 1 - dec sec, 2- uni min, 3 - dec min
   int unitSecDigit;
   int decSecDigit;
-  int unitMinDigt;
-  int decMinDigt;
+  int unitMinDigit;
+  int decMinDigit;
   // -----------------------------------------
 };
 

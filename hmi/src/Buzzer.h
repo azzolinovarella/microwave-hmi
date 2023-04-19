@@ -6,7 +6,7 @@
 class Buzzer {
   public:
     // MÉTODOS ----------------------------------
-    // ToDo
+    Buzzer(byte buzzerPin);
     // ------------------------------------------
 
  private:

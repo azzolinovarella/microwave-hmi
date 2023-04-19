@@ -9,7 +9,8 @@ class LcdKeypad {
     // MÉTODOS ----------------------------------
     LcdKeypad(byte rs, byte en, byte d4, byte d5, byte d6, byte d7);
     char monitorButtons();
-    void print(String message);
+    void print(String messageRow1, String messageRow2);
+    void blinkChar(byte colPos);
     // ------------------------------------------
 
  private:

@@ -6,7 +6,7 @@
 class Motor {
   public:
     // MÉTODOS ----------------------------------
-    // ToDo
+    Motor(byte motorPin);
     // ------------------------------------------
 
  private:
