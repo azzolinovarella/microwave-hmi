@@ -10,11 +10,13 @@ Microwave::Microwave(LcdKeypad lcdKeypadObject, LedRgb ledRgbObject, Buzzer buzz
 void Microwave::run() {
     char input;
     String time;
+    byte blinkPos;
 
     input = lcdKeypad.monitorButtons();
     this->resolveInput(input);
     time = this->getTime();
-    this->lcdKeypad.print("INSIRA O TEMPO:", time);
+    blinkPos = this->mapBlinkPos();
+    this->lcdKeypad.print("INSIRA O TEMPO:", time, blinkPos);
     delay(250);  // Calibrar
 }
 
@@ -91,6 +93,22 @@ void Microwave::resolveLeft() {
     this->digitPosition == 3 ? this->digitPosition = 0 : this->digitPosition += 1;
 }
 
+byte Microwave::mapBlinkPos() {
+    switch(this->digitPosition) {
+        case 0:
+            return 4;
+        
+        case 1: 
+            return 3;
+
+        case 2:
+            return 1;
+        
+        case 3:
+            return 0;
+    }
+}
+
 String Microwave::getTime() {
     String time;
 
@@ -124,7 +142,7 @@ void Microwave::turnOnMicrowave() {
     // Sepa mudar para usar delay??? Acho mais fácil e o display não buga!
     while ((currentTime - initialTime)/1000 < totalPeriod) {
         // ToDo 
-        this->lcdKeypad.print("RODANDO...", "TEMPO");
+        this->lcdKeypad.print("RODANDO...", "TEMPO", this->digitPosition);
 
         currentTime = millis();
     }

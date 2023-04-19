@@ -23,6 +23,7 @@ class Microwave {
   void resolveUp();
   void resolveDown();
   void resolveLeft();
+  byte mapBlinkPos();
   String getTime();
   unsigned long getRuntime();
   void turnOnMicrowave();

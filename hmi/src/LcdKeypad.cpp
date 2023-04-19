@@ -23,10 +23,24 @@ char LcdKeypad::monitorButtons() {
     }
 }
 
-void LcdKeypad::print(String messageRow1, String messageRow2) {
+void LcdKeypad::updateBlink() {
+    this->blink = !this->blink;
+}
+
+void LcdKeypad::print(String messageRow1, String messageRow2, byte blinkColPos) {
     this->lcd.clear(); 
     this->lcd.setCursor(0, 0);
     this->lcd.print(messageRow1);
     this->lcd.setCursor(0, 1);
     this->lcd.print(messageRow2);
+    
+    this->lcd.setCursor(blinkColPos, 1);
+    if(this->blink) {
+        this->lcd.blink();
+
+    } else {
+        this->lcd.noBlink();
+
+    }
+    this->updateBlink();
 }
