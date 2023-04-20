@@ -8,16 +8,8 @@ Microwave::Microwave(LcdKeypad lcdKeypadObject, LedRgb ledRgbObject, Buzzer buzz
 }
 
 void Microwave::run() {
-    char input;
-    String time;
-    byte blinkPos;
-
-    input = lcdKeypad.monitorButtons();
-    this->resolveInput(input);
-    time = this->getTime();
-    blinkPos = this->mapBlinkPos();
-    this->lcdKeypad.print("INSIRA O TEMPO:", time, blinkPos);
-    delay(250);  // Calibrar
+    this->resolveInput(lcdKeypad.monitorButtons());
+    this->lcdKeypad.print("INSIRA O TEMPO:", this->getTime(), this->mapBlinkPos());
 }
 
 void Microwave::resolveInput(char input) {
@@ -121,8 +113,8 @@ String Microwave::getTime() {
     return time;
 }
 
-unsigned long Microwave::getRuntime() {
-    unsigned long totalPeriod;
+int Microwave::getRunPeriod() {
+    int totalPeriod;
 
     totalPeriod = this->unitSecDigit;
     totalPeriod += this->decSecDigit * 10;
@@ -132,27 +124,39 @@ unsigned long Microwave::getRuntime() {
     return totalPeriod; 
 }
 
-void Microwave::turnOnMicrowave() {
-    unsigned long initialTime = millis();
-    unsigned long currentTime = millis();  // No início é assim mesmo
-    unsigned long totalPeriod = this->getRuntime();
+void Microwave::updateDigits(int totalPeriod) {
+    int remainder;
+    
+    this->decMinDigit = totalPeriod / 600;
+    remainder = totalPeriod % 600;
 
+    this->unitMinDigit = remainder / 60;
+    remainder = remainder % 60;
+
+    this->decSecDigit = remainder / 10;
+    this->unitSecDigit = remainder % 10;
+}
+
+void Microwave::turnOnMicrowave() {
+    int totalPeriod = this->getRunPeriod();
+
+    // Microondas começa a funcionar
     this->ledRgb.turnOnRed();
     // this->motor.turnOn();
-    // Sepa mudar para usar delay??? Acho mais fácil e o display não buga!
-    while ((currentTime - initialTime)/1000 < totalPeriod) {
-        // ToDo 
-        this->lcdKeypad.print("RODANDO...", "TEMPO", this->digitPosition);
-
-        currentTime = millis();
-    }
+    this->countDown(totalPeriod);
+    
+    // Microondas para de funcionar
     // this->motor.turnOff();
     this->ledRgb.turnOnGreen();
-    // this->buzzer.buzz();
+    this->lcdKeypad.print("FINALIZADO", "", 17);
+    this->buzzer.buzz(2000);
+}
 
-    // Só para testar
-    this->decMinDigit = 0;
-    this->unitMinDigit = 0;
-    this->decSecDigit = 0;
-    this->unitSecDigit = 0;
+void Microwave::countDown(int totalPeriod) {
+    while(totalPeriod > 0) {
+        totalPeriod -= 1;
+        this->lcdKeypad.print("RODANDO...", this->getTime(), 17);
+        this->updateDigits(totalPeriod);
+        delay(1000);
+    }
 }

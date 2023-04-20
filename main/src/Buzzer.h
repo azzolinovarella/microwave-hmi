@@ -1,20 +1,18 @@
-#ifndef MOTOR_H
-#define MOTOR_H
+#ifndef BUZZER_H
+#define BUZZER_H
 
 #include <Arduino.h>
 
-class Motor {
+class Buzzer {
   public:
     // MÉTODOS ----------------------------------
-    Motor(byte motorPin);
+    Buzzer(byte buzzerPin);
+    void buzz(int buzzPeriod);  // Em ms
     // ------------------------------------------
 
  private:
-  // MÉTODOS ----------------------------------
-  // ToDo
-  // ------------------------------------------
   // ATRIBUTOS --------------------------------
-  // ToDo
+  byte buzzerPin;
   // -----------------------------------------
 };
 

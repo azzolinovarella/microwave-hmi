@@ -42,25 +42,16 @@ void LedRgb::test() {
    this->turnOff();
    this->rPinStatus = HIGH;
    digitalWrite(this->rPin, this->rPinStatus);
-   Serial.print(this->rPinStatus);
-   Serial.print(this->gPinStatus);
-   Serial.println(this->bPinStatus);
    delay(500);
    
    this->turnOff();
    this->gPinStatus = HIGH;
    digitalWrite(this->gPin, this->gPinStatus);
-   Serial.print(this->rPinStatus);
-   Serial.print(this->gPinStatus);
-   Serial.println(this->bPinStatus);
    delay(500);
    
    this->turnOff();
    this->bPinStatus = HIGH;
    digitalWrite(this->bPin, this->bPinStatus);
-   Serial.print(this->rPinStatus);
-   Serial.print(this->gPinStatus);
-   Serial.println(this->bPinStatus);
    delay(500);
 }
 
