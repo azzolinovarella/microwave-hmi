@@ -142,11 +142,11 @@ void Microwave::turnOnMicrowave() {
 
     // Microondas começa a funcionar
     this->ledRgb.turnOnRed();
-    // this->motor.turnOn();
+    this->motor.turnOn();
     this->countDown(totalPeriod);
     
     // Microondas para de funcionar
-    // this->motor.turnOff();
+    this->motor.turnOff();
     this->ledRgb.turnOnGreen();
     this->lcdKeypad.print("FINALIZADO", "", 17);
     this->buzzer.buzz(500, 1000);
