@@ -7,7 +7,7 @@ class Buzzer {
   public:
     // MÉTODOS ----------------------------------
     Buzzer(byte buzzerPin);
-    void buzz(int buzzPeriod);  // Em ms
+    void buzz(int smallerBuzzPeriod, int biggerBuzzPeriod);  // Em ms
     // ------------------------------------------
 
  private:

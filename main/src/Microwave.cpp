@@ -149,7 +149,7 @@ void Microwave::turnOnMicrowave() {
     // this->motor.turnOff();
     this->ledRgb.turnOnGreen();
     this->lcdKeypad.print("FINALIZADO", "", 17);
-    this->buzzer.buzz(2000);
+    this->buzzer.buzz(500, 1000);
 }
 
 void Microwave::countDown(int totalPeriod) {

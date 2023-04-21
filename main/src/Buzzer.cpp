@@ -5,20 +5,20 @@ Buzzer::Buzzer(byte buzzerPin) {
     pinMode(this->buzzerPin, OUTPUT);
 }
 
-void Buzzer::buzz(int buzzPeriod) {
+void Buzzer::buzz(int smallerBuzzPeriod, int biggerBuzzPeriod) {
     // Primeiro bip - mais curto
     digitalWrite(this->buzzerPin, HIGH);
-    delay(buzzPeriod/4);
+    delay(smallerBuzzPeriod);
     digitalWrite(this->buzzerPin, LOW);
-    delay(buzzPeriod/4);
+    delay(smallerBuzzPeriod);
     // Segundo bip - igual ao primeiro
     digitalWrite(this->buzzerPin, HIGH);
-    delay(buzzPeriod/4);
+    delay(smallerBuzzPeriod);
     digitalWrite(this->buzzerPin, LOW);
-    delay(buzzPeriod/4);
+    delay(smallerBuzzPeriod);
     // Tericeiro bip - mais longo 
     digitalWrite(this->buzzerPin, HIGH);
-    delay(buzzPeriod/2);
+    delay(biggerBuzzPeriod);
     // Desliga o buzzer
     digitalWrite(this->buzzerPin, LOW);
 }
